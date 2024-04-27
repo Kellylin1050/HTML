@@ -3,20 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="all.css">
-    <link rel="preconnect" href="http://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Overview - <condata source="databus" key="SystemDescription" /></title>
+    <style>:root{
+        --primary-light: #62c7e3;
+        --primary: #4eafc9;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Ubuntu', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        line-height: 1.5;
+        font-weight: 300;
+    }
+
+    a{
+        text-decoration: none;
+        color: var(--primary);
+    }
+
+    a:hover,a:focus{
+        text-decoration: underline;
+        color: var(--primary-light)
+    }
+
+    .img {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-position: 50% 50%;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+
+    .card {
+        position: relative;
+        z-index: 1;
+        width: 400px;
+        background-color: rgba(255, 255, 255, .1);
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: .75rem;
+        backdrop-filter: blur(5px);
+        padding: 2rem;
+        color: white;
+    }
+
+    .title {
+        font-size: 1.75rem;
+        font-weight: 500;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 1.25rem;
+    }
+
+    .input-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .form-control {
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid rgba(255, 255, 255, .6);
+        background-color: transparent;
+        line-height: 1.25;
+        padding: 1rem 0;
+        color: white;
+        height: 48px;
+        outline: none;
+        appearance: none;
+    }
+
+    .form-control::placeholder {
+        color: transparent;
+    }
+
+    .label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        padding: 1rem 0;
+        white-space: nowrap;
+        pointer-events: none;
+        transform-origin: 0 0;
+        transition: transform .1s ease-in-out;
+    }
+
+    .form-control:focus ~ label,
+    .form-control:not(:placeholder-shown) ~ .label {
+        color: rgba(255, 255, 255, .6);
+        transform: scale(.85) translateY(-.8rem);
+    }
+
+    .form-control:not(:placeholder-shown),
+    .form-control:focus {
+        padding-top: 1.625rem;
+        padding-bottom: .625rem;
+    }
+
+    .form-check-input{
+        appearance: none;
+        cursor: pointer;
+        outline: none;
+        width: 1rem;
+        height: 1rem;
+        line-height:1.5;
+        border-radius: .25rem;
+        margin: 0;
+        margin-top: 0.25rem;
+        background-color: rgba(255, 255, 255, .1);
+        border: lpx solid rgba(255, 255, 255, .1);
+    }
+
+    .form-check-input:checked{
+        background-image: url('./check.svg');
+        background-position: center center;
+        background-color: var(--primary);
+    }
+
+    .btn{
+        width: 100%;
+        height: 48px;
+        background-color: rgba(255, 255, 255, .2);
+        border: 1px solid rgba(255, 255, 255, .6);
+        color: white;
+        border-radius: .25rem;
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: all .2s;
+    }
+
+    .btn:hover, .btn:focus, .btn:active, .btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .d-flex{
+        display: flex;
+    }
+    .justify-content-between{
+        justify-content: space-between ;
+    }
+
+    .margin-top{
+        margin-top: 1.5rem;
+    }
+
+    .center-content {
+        text-align: center;
+        margin: 0 auto;
+    }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rainyday.js/0.1.2/rainyday.min.js"></script>
 </head>
 <body>
+<div class="center-content">
+    <h2><condata source="databus" key="SystemName" /></h2>
+    <hr>
+    &nbsp;<br>
+    <b>Status:</b><br>
+    &nbsp;<br>
+    <table border="0">
+        <tr>
+            <td style="width:150px;"><b>Current time:</b></td>
+            <td><condata source="eval" key="time.strftime('%H:%M:%S', time.localtime())" /></td>
+        </tr>
+        <tr>
+            <td style="width:150px;"><b>System uptime:</b></td>
+            <td><condata source="databus" key="Uptime" /> timeticks (deciseconds)</td>
+        </tr>
+    </table>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check" viewBox="0 0 16 16">
+    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+</svg>
 <form class="card">
     <h1 class="title">Login</h1>
     <div class="input-group">
-        <input type="email" class="form-control" id="email" placeholder="Email"/>
-        <label for="email" class="label">Email</label>
+        <input type="text" class="form-control" id="username" placeholder="Username"/>
+        <label for="username" class="label">Username</label>
     </div>
     <div class="input-group">
         <input type="password" class="form-control" id="password" placeholder="Password"/>
@@ -32,6 +206,43 @@
         </div>
     </div>
     <button type="submit" class="btn margin-top">Login</button>
+    <script>
+        // 预设的用户名和密码列表
+        const users = [
+            { username: 'admin', password: '123456' },
+            { username: 'admin', password: 'password' },
+            { username: 'user', password: '123456' },
+            { username: 'user', password: 'password' },
+            { username: 'username', password: '123456' },
+            { username: 'username', password: 'password' }
+            // 可以添加更多的用户名和密码
+        ];
+
+        // 获取表单元素和按钮元素
+        const loginForm = document.querySelector('form.card');
+        const loginButton = document.querySelector('form.card button[type="submit"]');
+
+
+        // 添加表单提交事件监听器
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+
+            // 获取输入的用户名和密码
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 检查输入的用户名和密码是否与预设的任何一组匹配
+            const matchedUser = users.find(user => user.username === username && user.password === password);
+            if (matchedUser) {
+                // 如果匹配，则登录成功
+                alert('Login successful!');
+                window.location.href = 'http://192.168.134.128:1881/home'; // 假设跳转到名为 dashboard.html 的页面
+            } else {
+                // 如果不匹配，则显示错误提示
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+    </script>
 
 </form>
 <img src="https://images.unsplash.com/photo-1624607391660-d61e7c44c31b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYwdlfHx8fA%3D%3D&auto=format&fit=crop&w=1030&q=80" alt="" class="img"/>
@@ -55,5 +266,6 @@
 
     image.crossOrigin = 'anonymous';
 </script>
+</div>
 </body>
 </html>
